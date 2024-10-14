@@ -1,0 +1,30 @@
+body {
+	font-family: "Inter", sans-serif;	
+	background: linear-gradient(to right, #a1c4fd, #5c8ec0);	
+
+}
+
+.container {
+    width: 80%;
+    height: min-content;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.flex-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+
+}
+
+.icon {
+
+	margin-left: 5px;
+
+}
