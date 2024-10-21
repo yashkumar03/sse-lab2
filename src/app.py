@@ -19,8 +19,18 @@ def submit():
         return render_template("cat3.html")
 
 
+@app.route("/query", methods=["GET"])
+def handle_query():
+    q = request.args.get('q')
+    if q:
+        response = process_query(q)
+        return response
+
+
 def process_query(abc):
     if abc == "dinosaurs":
         return "Dinosaurs ruled the Earth 200 million years ago"
     elif abc == "asteroids":
         return "Unknown"
+    else:
+        return "Query does not exist"
