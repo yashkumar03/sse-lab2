@@ -17,3 +17,9 @@ def submit():
         return render_template("cat2.html")
     else:
         return render_template("cat3.html")
+
+def process_query(abc):
+    if (abc == "dinosaurs"):
+        return "Dinosaurs ruled the Earth 200 million years ago"
+    elif (abc == "asteroids"):
+        return "Unknown"
