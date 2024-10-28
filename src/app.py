@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import re
 
 app = Flask(__name__)
 
@@ -33,5 +34,9 @@ def process_query(abc):
         return "Dinosaurs ruled the Earth 200 million years ago"
     elif abc == "asteroids":
         return "Unknown"
+    elif "What is" in abc:
+        numbers = re.findall(r'\d+', abc)
+        numbers = [int(num) for num in numbers]
+        return str(numbers[0] + numbers[1])
     else:
         return "Query does not exist"
