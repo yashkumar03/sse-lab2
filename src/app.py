@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import re
-
-# import math
+import math
 
 app = Flask(__name__)
 
@@ -57,13 +56,12 @@ def process_query(abc):
         return str(max(numbers))
 
     elif "Which of the following numbers are primes" in abc:
-
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
         isPrime = False
         for number in numbers:
-            for i in range(1, number):
-                if number % i == 0:
+            for i in range(1, round(math.sqrt(number)) + 1):
+                if number % i != 0:
                     break
             if isPrime:
                 return str(number)
@@ -73,20 +71,10 @@ def process_query(abc):
     elif "Which of the following numbers is both a square and a cube" in abc:
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
-        # for number in numbers:
-        #     if isinstance(m
-        # ath.sqrt(number), int) and isinstance(math.pow(number, 1/3)):
-        #         return str(number)
-        # return null
+
         for number in numbers:
-            if is_perfect_sixth_power(number):
+            sixth_root = round(n ** (1 / 6))
+            if sixth_root**6 == n:
                 return str(number)
     else:
         return "Query does not exist"
-
-
-def is_perfect_sixth_power(n):
-    if n < 0:
-        return False
-    sixth_root = round(n ** (1 / 6))
-    return sixth_root**6 == n
