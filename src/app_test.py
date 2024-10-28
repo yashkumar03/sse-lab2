@@ -26,7 +26,7 @@ def test_multiplication():
 def test_largest_number():
     assert (
         process_query(
-            """Which of the following numbers is the largest: 
+            """Which of the following numbers is the largest:
             9, 46, 72?"""
         )
         == "72"
@@ -36,7 +36,7 @@ def test_largest_number():
 def test_primes():
     assert (
         process_query(
-            """Which of the following numbers are primes: 
+            """Which of the following numbers are primes:
             87, 73, 43, 29, 77?"""
         )
         == "73, 43, 29"
@@ -46,7 +46,7 @@ def test_primes():
 def test_squares_and_cubes():
     assert (
         process_query(
-            """Which of the following numbers is both a square and a cube: 
+            """Which of the following numbers is both a square and a cube:
             400, 2744, 2445, 4783, 729, 3191, 3439?"""
         )
         == "729"
