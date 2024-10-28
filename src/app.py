@@ -58,15 +58,16 @@ def process_query(abc):
     elif "Which of the following numbers are primes" in abc:
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
-        isPrime = False
+        prime_list = ""
         for number in numbers:
-            for i in range(1, round(math.sqrt(number)) + 1):
-                if number % i != 0:
+            isPrime = True
+            for i in range(2, round(math.sqrt(number)) + 1):
+                if number % i == 0:
+                    isPrime = False
                     break
             if isPrime:
-                return str(number)
-
-        return str(max(numbers))
+                prime_list = prime_list + str(number) + ", " 
+        return prime_list[:-2]
 
     elif "Which of the following numbers is both a square and a cube" in abc:
         numbers = re.findall(r"\d+", abc)
