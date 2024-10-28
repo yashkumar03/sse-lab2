@@ -49,11 +49,23 @@ def process_query(abc):
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
         return str(max(numbers))
-    # elif "Which of the following numbers is both a square and a cube" in abc:
-    #     numbers = re.findall(r'\d+', abc)
-    #     numbers = [int(num) for num in numbers]
-    #     for number in numbers:
-    #         if Math.sqrt(number)
 
+    elif "Which of the following numbers is both a square and a cube" in abc:
+        numbers = re.findall(r"\d+", abc)
+        numbers = [int(num) for num in numbers]
+        # for number in numbers:
+        #     if isinstance(math.sqrt(number), int) and isinstance(math.pow(number, 1/3)):
+        #         return str(number)
+        # return null
+        for number in numbers:
+            if is_perfect_sixth_power(number):
+                return str(number)
     else:
         return "Query does not exist"
+
+
+def is_perfect_sixth_power(n):
+    if n < 0:
+        return False
+    sixth_root = round(n ** (1 / 6))
+    return sixth_root**6 == n
