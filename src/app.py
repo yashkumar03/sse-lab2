@@ -55,7 +55,7 @@ def process_query(abc):
         numbers = [int(num) for num in numbers]
         # for number in numbers:
         #     if isinstance(m
-        #ath.sqrt(number), int) and isinstance(math.pow(number, 1/3)):
+        # ath.sqrt(number), int) and isinstance(math.pow(number, 1/3)):
         #         return str(number)
         # return null
         for number in numbers:
