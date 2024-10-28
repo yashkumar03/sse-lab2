@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import re
+
 # import math
 
 app = Flask(__name__)
@@ -40,14 +41,33 @@ def process_query(abc):
         numbers = [int(num) for num in numbers]
         return str(numbers[0] * numbers[1])
 
-    elif "What is" in abc:
+    elif "What is" in abc and "plus" in abc:
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
         return str(numbers[0] + numbers[1])
 
+    elif "What is" in abc and "minus" in abc:
+        numbers = re.findall(r"\d+", abc)
+        numbers = [int(num) for num in numbers]
+        return str(numbers[0] - numbers[1])
+
     elif "Which of the following numbers is the largest" in abc:
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
+        return str(max(numbers))
+
+    elif "Which of the following numbers are primes" in abc:
+
+        numbers = re.findall(r"\d+", abc)
+        numbers = [int(num) for num in numbers]
+        isPrime = False
+        for number in numbers:
+            for i in range(1, number):
+                if number % i == 0:
+                    break
+            if isPrime == True:
+                return str(number)
+
         return str(max(numbers))
 
     elif "Which of the following numbers is both a square and a cube" in abc:
