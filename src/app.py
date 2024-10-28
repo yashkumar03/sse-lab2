@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import re
+import math
 
 app = Flask(__name__)
 
@@ -22,7 +23,7 @@ def submit():
 
 @app.route("/query", methods=["GET"])
 def handle_query():
-    q = request.args.get('q')
+    q = request.args.get("q")
     if q:
         response = process_query(q)
         return response
@@ -34,21 +35,25 @@ def process_query(abc):
         return "Dinosaurs ruled the Earth 200 million years ago"
     elif abc == "asteroids":
         return "Unknown"
-    elif "What is" in abc and "multiplied"in abc:
-        numbers = re.findall(r'\d+', abc)
+    elif "What is" in abc and "multiplied" in abc:
+        numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
-        return str(numbers[0]*numbers[1])
+        return str(numbers[0] * numbers[1])
 
     elif "What is" in abc:
-        numbers = re.findall(r'\d+', abc)
+        numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
-        return str(numbers[0]+numbers[1])
+        return str(numbers[0] + numbers[1])
 
     elif "Which of the following numbers is the largest" in abc:
-        numbers = re.findall(r'\d+', abc)
+        numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
         return str(max(numbers))
-    elif ""
+    # elif "Which of the following numbers is both a square and a cube" in abc:
+    #     numbers = re.findall(r'\d+', abc)
+    #     numbers = [int(num) for num in numbers]
+    #     for number in numbers:
+    #         if Math.sqrt(number)
 
     else:
         return "Query does not exist"
