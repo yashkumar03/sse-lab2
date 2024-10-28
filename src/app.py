@@ -65,7 +65,7 @@ def process_query(abc):
             for i in range(1, number):
                 if number % i == 0:
                     break
-            if isPrime == True:
+            if isPrime:
                 return str(number)
 
         return str(max(numbers))
