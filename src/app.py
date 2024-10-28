@@ -66,16 +66,16 @@ def process_query(abc):
                     isPrime = False
                     break
             if isPrime:
-                prime_list = prime_list + str(number) + ", " 
+                prime_list = prime_list + str(number) + ", "
         return prime_list[:-2]
 
     elif "Which of the following numbers is both a square and a cube" in abc:
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
-
         for number in numbers:
-            sixth_root = round(n ** (1 / 6))
-            if sixth_root**6 == n:
+            sixth_root = round(number ** (1 / 6))
+            if sixth_root**6 == number:
                 return str(number)
+
     else:
         return "Query does not exist"
