@@ -25,6 +25,7 @@ def handle_query():
     if q:
         response = process_query(q)
         return response
+    return ""
 
 
 def process_query(abc):
