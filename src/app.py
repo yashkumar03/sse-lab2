@@ -38,5 +38,10 @@ def process_query(abc):
         numbers = re.findall(r'\d+', abc)
         numbers = [int(num) for num in numbers]
         return str(numbers[0] + numbers[1])
+    elif "Which of the following numbers is the largest" in abc:
+        numbers = re.findall(r'\d+', abc)
+        numbers = [int(num) for num in numbers]
+        return str(max(numbers))
+
     else:
         return "Query does not exist"
