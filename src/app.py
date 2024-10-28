@@ -33,8 +33,10 @@ def handle_query():
 def process_query(abc):
     if abc == "dinosaurs":
         return "Dinosaurs ruled the Earth 200 million years ago"
+
     elif abc == "asteroids":
         return "Unknown"
+
     elif "What is" in abc and "multiplied" in abc:
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
