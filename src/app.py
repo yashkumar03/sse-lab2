@@ -34,14 +34,21 @@ def process_query(abc):
         return "Dinosaurs ruled the Earth 200 million years ago"
     elif abc == "asteroids":
         return "Unknown"
+    elif "What is" in abc and "multiplied"in abc:
+        numbers = re.findall(r'\d+', abc)
+        numbers = [int(num) for num in numbers]
+        return str(numbers[0]*numbers[1])
+
     elif "What is" in abc:
         numbers = re.findall(r'\d+', abc)
         numbers = [int(num) for num in numbers]
-        return str(numbers[0] + numbers[1])
+        return str(numbers[0]+numbers[1])
+
     elif "Which of the following numbers is the largest" in abc:
         numbers = re.findall(r'\d+', abc)
         numbers = [int(num) for num in numbers]
         return str(max(numbers))
+    elif ""
 
     else:
         return "Query does not exist"
