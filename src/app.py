@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import re
-import math
+# import math
 
 app = Flask(__name__)
 
@@ -54,7 +54,8 @@ def process_query(abc):
         numbers = re.findall(r"\d+", abc)
         numbers = [int(num) for num in numbers]
         # for number in numbers:
-        #     if isinstance(math.sqrt(number), int) and isinstance(math.pow(number, 1/3)):
+        #     if isinstance(m
+        #ath.sqrt(number), int) and isinstance(math.pow(number, 1/3)):
         #         return str(number)
         # return null
         for number in numbers:
