@@ -47,7 +47,7 @@ def test_squares_and_cubes():
     assert (
         process_query(
             "Which of the following numbers is both \
-    a square and a cube: 400, 2744, 2445, 4783, 729, 3191, 3439?
+        a square and a cube: 400, 2744, 2445, 4783, 729, 3191, 3439?"
         )
         == "729"
     )
