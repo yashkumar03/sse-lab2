@@ -19,18 +19,27 @@
         <table>
             <thead>
                 <tr>
-                    <th>Repo Name</th>
+                    <th>Repo Name (Click to redirect)</th>
                     <th>Last Updated</th>
+                    <th>Commit Hash</th>
+                    <th>Author</th>
+                    <th>Date Created</th>
+                    <th>Last Commit Message</th>
                 </tr>
             </thead>
             <tbody>
                 {% for repo in repos %}
                 <tr>
-                    <td>{{ repo.name }}</td>
+                    <td><a href="{{ repo.latest_commit.url if repo.latest_commit else '#' }}" target="_blank">{{ repo.name }}</a></td>
                     <td>{{ repo.updated_at[:10] }}</td>
+                    <td>{{ repo.latest_commit.sha }}</td>
+                    <td>{{ repo.latest_commit.author }}</td>
+                    <td>{{ repo.latest_commit.date[:10] }}</td>
+                    <td>{{ repo.latest_commit.message }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
+        </table>
     </div>
 </body>
 </html>

@@ -25,7 +25,7 @@ def submit():
 
 @app.route("/query", methods=["GET"])
 def handle_query():
-    q = request.args.get('q', '')
+    q = request.args.get("q", "")
     if q:
         response = process_query(q)
         return response
@@ -55,7 +55,7 @@ def process_query(query: str):
 
     elif "Which of the following numbers is the largest" in query:
         numbers = re.findall(r"\d+", query)
-        numbers = [int(num) for num in numbers]        
+        numbers = [int(num) for num in numbers]
         return str(max(numbers))
 
     elif "Which of the following numbers are primes" in query:
@@ -80,23 +80,33 @@ def process_query(query: str):
             if sixth_root**6 == number:
                 return str(number)
 
-
     else:
         return "Query does not exist"
-    
-    
+
+
 @app.route("/github", methods=["GET", "POST"])
 def github_info():
     if request.method == "POST":
-        username = request.form.get("username", '')
+        username = request.form.get("username", "")
         response = requests.get(f"https://api.github.com/users/{username}/repos")
         if response.status_code == 200:
-            repos = response.json() # data returned is a list of ‘repository’ entities
-            print(repos[0][])
-            # for repo in repos:
-            #     reponse_commit = requests.get(f"{repo.commits_url}")
-            #     commit_data = response_commit.json()
-            #     print(commit_data)
+            repos = response.json()  # data returned is a list of 'repository' entities
+            for i, repo in enumerate(repos):
+                commits_url = repo["commits_url"].replace("{/sha}", "")
+                response_commit = requests.get(commits_url)
+
+                if response_commit.status_code == 200:
+                    commit_data = response_commit.json()
+
+                    if commit_data:
+                        repos[i]["latest_commit"] = {
+                            # commit hash, author, date, commit message, url
+                            "sha": commit_data[0]["sha"],
+                            "author": commit_data[0]["commit"]["author"]["name"],
+                            "date": commit_data[0]["commit"]["author"]["date"],
+                            "message": commit_data[0]["commit"]["message"],
+                            "url": f"https://github.com/{username}/{repo['name']}",
+                        }
             return render_template("github_table.html", repos=repos)
-            
+
     return render_template("github_route.html")
