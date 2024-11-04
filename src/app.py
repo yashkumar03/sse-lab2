@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import re
 import math
+import requests
 
 app = Flask(__name__)
 
@@ -81,3 +82,15 @@ def process_query(query: str):
 
     else:
         return "Query does not exist"
+    
+    
+@app.route("/github", methods=["GET", "POST"])
+def github_info():
+    if request.method == "POST":
+        username = request.form.get("username", '')
+        response = requests.get(f"https://api.github.com/users/{username}/repos")
+        if response.status_code == 200:
+            repos = response.json() # data returned is a list of ‘repository’ entities
+            for repo in repos:
+                print(repo["full_name"])  
+    return render_template("github_route.html")
