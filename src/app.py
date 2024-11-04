@@ -87,7 +87,8 @@ def process_query(query: str):
 def github_info():
     if request.method == "POST":
         username = request.form.get("username", "")
-        response = requests.get(f"https://api.github.com/users/{username}/repos")
+        link = f"https://api.github.com/users/{username}/repos"
+        response = requests.get(link)
         print(response.status_code)
         if response.status_code == 200:
             # data returned is a list of 'repository' entities
