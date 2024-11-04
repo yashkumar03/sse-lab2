@@ -96,16 +96,17 @@ def github_info():
                 commits_url = repo["commits_url"].replace("{/sha}", "")
                 response_commit = requests.get(commits_url)
                 if response_commit.status_code == 200:
-                    commit_data = response_commit.json()
+                    commit = response_commit.json()
 
-                    if commit_data:
+                    if commit:
                         repos[i]["latest_commit"] = {
-                            # commit hash, author, date, commit message, url
-                            "sha": commit_data[0]["sha"],
-                            "author": commit_data[0]["commit"]["author"]["name"],
-                            "date": commit_data[0]["commit"]["author"]["date"],
-                            "message": commit_data[0]["commit"]["message"],
-                            "url": f"https://github.com/{username}/{repo['name']}",
+                            "sha": commit[0]["sha"],
+                            "author": commit[0]["commit"]["author"]["name"],
+                            "date": commit[0]["commit"]["author"]["date"],
+                            "message": commit[0]["commit"]["message"],
+                            "url": f"""
+                            https://github.com/{username}/{repo['name']}
+                            """,
                         }
             return render_template("github_table.html", repos=repos)
 
