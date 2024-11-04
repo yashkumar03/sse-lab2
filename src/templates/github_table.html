@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="{{ url_for('static', filename='styles.css')}}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Route</title>
+    <style>
+        th, td {
+            text-align: left;
+            padding: 5px 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>GitHub Route</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Repo Name</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for repo in repos %}
+                <tr>
+                    <td>{{ repo.name }}</td>
+                    <td>{{ repo.updated_at[:10] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </div>
+</body>
+</html>

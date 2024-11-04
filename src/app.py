@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import re
 import math
 import requests
+import json
 
 app = Flask(__name__)
 
@@ -37,7 +38,6 @@ def process_query(query: str):
 
     elif query == "asteroids":
         return "Unknown"
-
     elif "What is" in query and "multiplied" in query:
         numbers = re.findall(r"\d+", query)
         numbers = [int(num) for num in numbers]
@@ -55,7 +55,7 @@ def process_query(query: str):
 
     elif "Which of the following numbers is the largest" in query:
         numbers = re.findall(r"\d+", query)
-        numbers = [int(num) for num in numbers]
+        numbers = [int(num) for num in numbers]        
         return str(max(numbers))
 
     elif "Which of the following numbers are primes" in query:
@@ -80,6 +80,7 @@ def process_query(query: str):
             if sixth_root**6 == number:
                 return str(number)
 
+
     else:
         return "Query does not exist"
     
@@ -91,6 +92,11 @@ def github_info():
         response = requests.get(f"https://api.github.com/users/{username}/repos")
         if response.status_code == 200:
             repos = response.json() # data returned is a list of ‘repository’ entities
-            for repo in repos:
-                print(repo["full_name"])  
+            print(repos[0][])
+            # for repo in repos:
+            #     reponse_commit = requests.get(f"{repo.commits_url}")
+            #     commit_data = response_commit.json()
+            #     print(commit_data)
+            return render_template("github_table.html", repos=repos)
+            
     return render_template("github_route.html")
