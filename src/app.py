@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 import re
 import math
 import requests
-import json
 
 app = Flask(__name__)
 
@@ -89,12 +88,13 @@ def github_info():
     if request.method == "POST":
         username = request.form.get("username", "")
         response = requests.get(f"https://api.github.com/users/{username}/repos")
+        print(response.status_code)
         if response.status_code == 200:
-            repos = response.json()  # data returned is a list of 'repository' entities
+            # data returned is a list of 'repository' entities
+            repos = response.json()
             for i, repo in enumerate(repos):
                 commits_url = repo["commits_url"].replace("{/sha}", "")
                 response_commit = requests.get(commits_url)
-
                 if response_commit.status_code == 200:
                     commit_data = response_commit.json()
 
