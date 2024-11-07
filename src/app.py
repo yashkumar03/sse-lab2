@@ -89,7 +89,11 @@ def github_info():
         username = request.form.get("username", "")
         link = f"https://api.github.com/users/{username}/repos"
         response = requests.get(link)
-        print(response.status_code)
+        
+        # if out of tokens give user a response
+        if response.status_code != 200:
+            return "Out of tokens, please try again later!"
+        # if valid response, fetch more data from API
         if response.status_code == 200:
             # data returned is a list of 'repository' entities
             repos = response.json()
@@ -109,6 +113,6 @@ def github_info():
                             https://github.com/{username}/{repo['name']}
                             """,
                         }
-            return render_template("github_table.html", repos=repos)
+            return render_template("github_table.html", repos=repos, username=username)
 
     return render_template("github_route.html")
