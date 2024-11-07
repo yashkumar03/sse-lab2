@@ -113,6 +113,7 @@ def github_info():
                             https://github.com/{username}/{repo['name']}
                             """,
                         }
-            return render_template("github_table.html", repos=repos, username=username)
+            return render_template("github_table.html", \
+                                   repos=repos, username=username)
 
     return render_template("github_route.html")
