@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import re
 import math
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -83,16 +84,21 @@ def process_query(query: str):
         return "Query does not exist"
 
 
+# employed token to increase the api request rate limit
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+headers = {"Authorization": f"token{GITHUB_TOKEN}"}
+
+
 @app.route("/github", methods=["GET", "POST"])
 def github_info():
     if request.method == "POST":
         username = request.form.get("username", "")
         link = f"https://api.github.com/users/{username}/repos"
-        response = requests.get(link)
+        response = requests.get(link, headers=headers)
 
         # if out of tokens give user a response
         if response.status_code != 200:
-            return "Out of tokens, please try again later!"
+            return f"{response.status_code}: {response.reason}"
         # if valid response, fetch more data from API
         if response.status_code == 200:
             # data returned is a list of 'repository' entities
